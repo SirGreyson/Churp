@@ -7,4 +7,6 @@
 *.iml
 out
 gen
+*.css
+main.js
 # Created by .ignore support plugin (hsz.mobi)
