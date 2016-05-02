@@ -1,0 +1,24 @@
+{
+  "name": "Churp",
+  "authors": [
+    "Greyson Von Hagel <gvonhagel@gmail.com>"
+  ],
+  "description": "Send money via Twitter",
+  "main": "index.html",
+  "moduleType": [
+    "es6"
+  ],
+  "license": "MIT",
+  "homepage": "churp.me",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.4.0"
+  }
+}
