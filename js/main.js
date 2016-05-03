@@ -33,10 +33,12 @@ function createUser(email, password, twitter) {
  * @param email - the User's email address
  * @param password - the User's specified password
  */
-function authorizeUser(email, password) {
+function authorizeUser(email, password, remember) {
+    console.log("Hey");
     ref.authWithPassword({
         email: email,
-        password: password
+        password: password,
+        remember: remember ? 'default' : 'sessionOnly'
     }, function (error, authData) {
         if (error) {
             console.log("Login Failed!", error);

@@ -1,0 +1,60 @@
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<script src="../bower_components/firebase/firebase.js"></script>
+<script src="../js/main.js"></script>
+
+<dom-module id="login-module">
+
+    <style>
+        .input-container {
+            width: 45%;
+            margin: auto;
+            height: 50%;
+            border: 3px solid black;
+            padding: 2em;
+        }
+
+        iron-icon {
+            margin-right: .5em;
+        }
+    </style>
+
+    <template>
+        <div class="input-container">
+            <paper-input label="email address" bind-value="{{email}}">
+                <iron-icon icon="mail" prefix></iron-icon>
+            </paper-input>
+            <paper-input label="password" type="password" bind-value="{{password}}">
+                <iron-icon icon="https" prefix></iron-icon>
+            </paper-input>
+            <paper-input label="phone number (coming soon!)" disabled>
+                <iron-icon icon="settings-phone" prefix></iron-icon>
+            </paper-input>
+            <paper-checkbox checked="{{remember}}">remember me?</paper-checkbox>
+            <button on-tap="auth"></button>
+        </div>
+    </template>
+
+    <script>
+        Polymer({
+            is: 'login-module',
+            properties: {
+                email: {
+                    type: String
+                },
+                password: {
+                    type: String
+                },
+                remember: {
+                    type: Boolean,
+                    value: true
+                }
+            },
+            auth: function () {
+                authorizeUser(this.email, this.password, this.remember);
+            }
+        });
+    </script>
+
+</dom-module>
