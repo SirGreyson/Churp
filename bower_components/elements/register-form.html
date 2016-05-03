@@ -1,22 +1,54 @@
 <link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="register-input.html">
-
+<link rel="import" href="username-input.html">
+<link rel="import" href="password-input.html">
+<link rel="import" href="twitter-username-input.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
 
 
 <dom-module id="register-form">
-  
-  <style>
 
-  </style>
+    <style>
+        paper-button {
+            width: 100%;
+            --paper-button-ink-color: blue;
+        }
+    </style>
 
-  <template>
-    <register-input></register-input>
+    <template>
+        <h1><center>LOGO</center></h1>
+        
+
+        <div class="inputs">
+            <username-input username="{{username}}"> </username-input>
+            <password-input password="{{password}}"> </password-input>
+            <twitter-username-input twittername="{{twittername}}"></twitter-username-input>
+            <paper-button raised on-tap="log"> REGISTER </paper-button>
+
+        </div>
+        
   </template>
 
-  <script>
-    Polymer({
-      is: "register-form"
+    <script>
+        Polymer({
+      is: "register-form",
+      properties: {
+          username: {
+              type: String,
+          },
+          password: {
+              type: String
+          },
+          twittername: {
+              type: String
+          }
+      },
+            log: function() {
+          console.log(this.username);
+      },
+      
     });
-  </script>
+    </script>
 
 </dom-module>
