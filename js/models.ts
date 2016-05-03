@@ -4,6 +4,6 @@
 
 //Model for Churp user information/settings
 interface IUser {
-    username: string;
+    email: string;
     password: string;
 }
