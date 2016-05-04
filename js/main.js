@@ -6,46 +6,64 @@
  * Reference to Firebase database for user management
  * @type {Firebase}
  */
-var ref = new Firebase("http://magiccitycoders-c.firebaseio.com");
+var root = new Firebase("http://magiccitycoders-c.firebaseio.com");
+var users = root.child('users');
 
 /**
- * Create a User account on Firebase and save Twitter handle
- * @param email - the User's email address
- * @param password - the User's specified password
- * @param twitter - the User's registered Twitter handle
+ * Confirms a set of login credentials are valid
+ * @param username - the user's supposed Twitter username
+ * @param password - the user's supposed password
+ * @returns {Promise.<Boolean>|*}
  */
-function createUser(email, password, twitter) {
-    ref.createUser({
-        email: email,
-        password: password
-    }, function (error, userData) {
+function authorizeUser(username, password) {
+    return users.once('value').then(function (snapshot) {
+        if (!snapshot.hasChild(username)) {
+            return false;
+        }
+        return password == snapshot.child(username).val()['password'];
+    });
+}
+
+/**
+ * Adds a new user to the Firebase database
+ * @param username - the new user's Twitter username
+ * @param password - the new user's predefined password
+ */
+function addUser(username, password) {
+    users.child(username).set({password: password}, function (error) {
         if (error) {
-            console.log("Error creating user:", error);
+            console.log("User could not be added.", error);
         } else {
-            ref.child(userData.uid.toString()).set({twitter: twitter});
-            console.log("Successfully created user account with uid:", userData.uid);
+            console.log("User " + username + " was successfully added");
         }
     });
 }
 
 /**
- * Log an existing User into the site using their credentials
- * @param email - the User's email address
- * @param password - the User's specified password
+ * Removes an existing user from the Firebase database
+ * @param username - the Twitter username of the user to remove
  */
-function authorizeUser(email, password, remember) {
-    return ref.authWithPassword({
-        email: email,
-        password: password
-    }, function (error, authData) {
-        if (!error) {
-            console.log("Authenticated successfully with payload:", authData);
-            return authData;
+function removeUser(username) {
+    users.child(username).set({}, function (error) {
+        if (error) {
+            console.log("User could not be removed.", error);
         } else {
-            console.log("Login Failed!", error);
-            return error.code;
+            console.log("User " + username + " was successfully removed");
         }
-    }, {
-        remember: remember ? 'default' : 'sessionOnly'
+    });
+}
+
+/**
+ * Updates the password of an existing user
+ * @param username - the Twitter username of the user to update
+ * @param newPass - the new user-defined password
+ */
+function updatePassword(username, newPass) {
+    users.child(username).update({password: newPass}, function (error) {
+        if (error) {
+            console.log("User password could not be updated.", error);
+        } else {
+            console.log("User " + username + " successfully updated their password");
+        }
     });
 }
