@@ -75,15 +75,13 @@
           }
       },
         newUser: function () {
-            userExists(this.twittername).then(function(success){
-                if (!success) {
-                    console.log(this.twittername)
-                    console.log(this.password)
-                    addUser(this.twittername, this.password);  
+            userExists(this.twittername, this).then(function (success) {
+                if (!success.value) {
+                    addUser(success.context.twittername, success.context.password);
                 } else {
                     console.log('Uername is taken');
                 }
-            },this.properties)
+            })
         }
       
       

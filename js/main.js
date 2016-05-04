@@ -14,9 +14,13 @@ var users = root.child('users');
  * @param username - the Twitter username in question
  * @returns {Promise.<Boolean>|*}
  */
-function userExists(username) {
-    return users.once('value').then(function (snapshot) {
-        return snapshot.hasChild(username);
+function userExists(username, context) {
+    return users.once('value', function () {
+    }, context).then(function (snapshot) {
+        return {
+            value: snapshot.hasChild(username),
+            context: context
+        }
     });
 }
 
