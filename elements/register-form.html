@@ -1,10 +1,12 @@
-<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="username-input.html">
 <link rel="import" href="password-input.html">
 <link rel="import" href="twitter-username-input.html">
-<link rel="import" href="../paper-button/paper-button.html">
-<link rel="import" href="../iron-icon/iron-icon.html">
-<link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<script src="../bower_components/firebase/firebase.js"></script>
+<script src="../js/main.js"></script>
 
 
 <dom-module id="register-form">
@@ -21,10 +23,9 @@
         
 
         <div class="inputs">
-            <username-input username="{{username}}"> </username-input>
-            <password-input password="{{password}}"> </password-input>
-            <twitter-username-input twittername="{{twittername}}"></twitter-username-input>
-            <paper-button raised on-tap="log"> REGISTER </paper-button>
+            <twitter-username-input bind-value="{{twittername}}"></twitter-username-input>
+            <password-input bind-value="{{password}}"> </password-input>
+            <paper-button raised on-tap="newUser"> REGISTER </paper-button>
 
         </div>
         
@@ -34,7 +35,7 @@
         Polymer({
       is: "register-form",
       properties: {
-          username: {
+          email: {
               type: String,
           },
           password: {
@@ -42,11 +43,15 @@
           },
           twittername: {
               type: String
+          },
+          isRegistered: {
+              type: Boolean
           }
       },
-            log: function() {
-          console.log(this.username);
-      },
+        newUser: function () {
+            addUser(this.twittername, this.password);
+        }
+      
       
     });
     </script>
