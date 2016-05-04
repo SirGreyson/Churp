@@ -10,6 +10,17 @@ var root = new Firebase("http://magiccitycoders-c.firebaseio.com");
 var users = root.child('users');
 
 /**
+ * Determines whether or not a requested username is in use
+ * @param username - the Twitter username in question
+ * @returns {Promise.<Boolean>|*}
+ */
+function userExists(username) {
+    return users.once('value').then(function (snapshot) {
+        return snapshot.hasChild(username);
+    });
+}
+
+/**
  * Confirms a set of login credentials are valid
  * @param username - the user's supposed Twitter username
  * @param password - the user's supposed password
