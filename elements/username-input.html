@@ -1,5 +1,5 @@
-<link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../paper-input/paper-input.html">
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
 
 <dom-module id="username-input">
   
@@ -8,16 +8,13 @@
   </style>
 
   <template>
-        <paper-input label="Username">{{username}}</paper-input>
+        <paper-input label="Email"></paper-input>
+
   </template>
 
   <script>
     Polymer({
-      is: "username-input",
-      properties: {
-        username: String
-        }
-      }
+      is: "username-input"
     });
   </script>
 

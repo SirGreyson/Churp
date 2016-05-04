@@ -1,19 +1,63 @@
-<link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../paper-input/paper-input.html">
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<script src="../bower_components/jquery/dist/jquery.js"></script>
+
 
 <dom-module id="twitter-username-input">
-  
+
   <style>
+    
+    .small {
+      --iron-icon-height: 1em;
+      --iron-icon-width: 1em;
+    }
+    
+    #at-symbol {
+      margin-bottom: 0;
+      margin-right: 0.1em;
+    }
 
   </style>
 
   <template>
-        <paper-input value="{{twittername}}" label="Twitter Username"></paper-input>
+        <paper-input bind-value="{{twittername}}" label="Twitter Username">
+          <p id="at-symbol" prefix>@</p>
+          <!--<paper-button class="check-button" on-tap="setajax" suffix>CHECK AVAILIBILITY</paper-button>-->
+        </paper-input>
+        
+        
+        <!--///////////////////////-->
+        <!--The comment above and below are the remains of me trying to ask the twitter API if a twittername exists.
+            it didn't workout, obviously.-->
+        <!--////////////////////////-->
+        
+        
+        <!--<iron-ajax class="requester"
+          id="iron"
+          auto
+          url="https://api.twitter.com/1.1/users/show.json?screen_name={{twittername}}&oauth_consumer_key=ojogTz00jwQEWq1KBGJC4UE27&oauth_token=727532089667670016-1zL1r2tbGViTQnVSO5nuWEEFR5o2B5J&oauth_signature_method=HMAC-SHA1&oauth_timestamp=1462385357&oauth_nonce=XQTw1x&oauth_version=1.0&oauth_signature=3UDHuGMYRSdBch%2F%2FuKc7BYMDTek%3D"
+          headers: '{
+            "authorization": "OAuth oauth_consumer_key='ojogTz00jwQEWq1KBGJC4UE27',oauth_token='727532089667670016-1zL1r2tbGViTQnVSO5nuWEEFR5o2B5J',oauth_signature_method='HMAC-SHA1',oauth_timestamp='1462388520',oauth_nonce='NvgeBT',oauth_version='1.0',oauth_signature='Ubxqm%252B%252Bp9BLqWD%252B%252BiQeNy3JHoDo%253D'",
+            "cache-control": 'no-cache',
+            "postman-token": "21164093-c6e3-312e-72ec-f8f741199f0b"
+          }'
+          lastResponse="hresponce"
+          method= "GET"
+          handle-as="json">
+      </iron-ajax>-->
   </template>
+  
+
 
   <script>
     Polymer({
-      is: "twitter-username-input"
+      is: "twitter-username-input",
+      // setajax: function() {
+      //   this.$.iron.generateRequest();
+      // },
+      // hresponse: function() {
+      //   console.log(request)
+      // }
     });
   </script>
 
