@@ -34,17 +34,18 @@ function createUser(email, password, twitter) {
  * @param password - the User's specified password
  */
 function authorizeUser(email, password, remember) {
-    console.log("Hey");
-    ref.authWithPassword({
+    return ref.authWithPassword({
         email: email,
-        password: password,
-        remember: remember ? 'default' : 'sessionOnly'
+        password: password
     }, function (error, authData) {
-        if (error) {
-            console.log("Login Failed!", error);
-        } else {
+        if (!error) {
             console.log("Authenticated successfully with payload:", authData);
             return authData;
+        } else {
+            console.log("Login Failed!", error);
+            return error.code;
         }
+    }, {
+        remember: remember ? 'default' : 'sessionOnly'
     });
 }
