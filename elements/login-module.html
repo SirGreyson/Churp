@@ -3,6 +3,7 @@
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-spinner/paper-spinner.html">
 <script src="../bower_components/firebase/firebase.js"></script>
 <script src="../js/firebase.js"></script>
 
@@ -20,6 +21,8 @@
                 <iron-icon icon="https" prefix></iron-icon>
             </paper-input>
             <paper-button raised on-tap="submitForm">LOGIN</paper-button>
+            <br>
+            <paper-spinner id="spinner"></paper-spinner>
         </form>
     </template>
 
@@ -28,6 +31,10 @@
             is: 'login-module',
 
             submitForm: function () {
+                if (this.username == null || this.username == '') {
+                    document.getElementById('username').invalid = true;
+                    return;
+                }
                 userExists(this.username, this).then(function (success) {
                     document.getElementById('username').invalid = !success.value;
                     if (!success.value) {
@@ -38,6 +45,7 @@
                 authorizeUser(this.username, this.password).then(function (success) {
                     document.getElementById('password').invalid = !success;
                     if (success) {
+                        document.getElementById('spinner').active = true;
                         //TODO Navigate to user's setting page
                     }
                 });
