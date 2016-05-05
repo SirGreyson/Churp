@@ -18,7 +18,7 @@ function userExists(username, context) {
     return users.once('value', function () {
     }, context).then(function (snapshot) {
         return {
-            value: snapshot.hasChild(username),
+            value: username != undefined && snapshot.hasChild(username),
             context: context
         }
     });

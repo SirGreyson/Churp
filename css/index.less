@@ -1,11 +1,60 @@
-#splash-screen {
-  background-color: blue;
+#main-view {
+  background-color: lightgray;
   height: 100vh;
   width: 100vw;
+  text-align: center;
+
+  .logo-container {
+    margin-top: 3em;
+  }
+
+  .nav-container {
+    text-align: center;
+
+    button {
+      letter-spacing: .5em;
+
+      a {
+        text-decoration: none;
+        color: white;
+      }
+    }
+  }
+
+  #down-arrow {
+    top: 93%;
+    position: absolute;
+    font-size: 5em;
+    left: 48.3%;
+  }
+
+  #down-arrow:hover {
+    cursor: pointer;
+  }
 }
 
-#how-to {
-  background-color: red;
+#info-view {
+  background-color: lightblue;
   height: 100vh;
   width: 100vw;
+  text-align: center;
+
+  #up-arrow {
+    font-size: 5em;
+  }
+
+  #up-arrow:hover {
+    cursor: pointer;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .logo-container img {
+    width: 75%;
+  }
+
+  #down-arrow {
+    top: 91% !important;
+    left: 42% !important;
+  }
 }

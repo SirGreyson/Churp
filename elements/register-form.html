@@ -55,7 +55,7 @@
         <form is="iron-form" id="form">
             <!--Twittername input-->
             <paper-input id="twittername" label="twitter username" bind-value="{{twittername}}"
-                         error-message="Invalid username!">
+                         error-message="{{errMsg}}">
                 <iron-icon icon="face" prefix></iron-icon>
             </paper-input>
             <!--Password input-->
@@ -83,7 +83,7 @@
         Polymer({
       is: "register-form",
       properties: {
-            twittername: {
+          twittername: {
             type: String
           },
           password: {
@@ -91,14 +91,19 @@
           },
           passwordCheck: {
               type: String
+          },
+          errMsg: {
+              type: String,
+              notify: true
           }
       },
         submitForm: function () {
-            if (this.twittername == null) {
+            if (this.twittername == null || this.twittername == '') {
+                this.errMsg = 'Invalid username!';
                 document.getElementById('twittername').invalid = true;
                 setTimeout(function() {
                     document.getElementById('twittername').invalid = false;
-                }, 2000)
+                }, 2000);
                 return;
             }
             if (this.passwordCheck != this.password) {
@@ -123,6 +128,7 @@
                     },2000)
                     // addUser(success.context.twittername, success.context.password)
                 } else {
+                    success.context.errMsg = "Error! There is already a user by that name!";
                     document.getElementById('twittername').invalid = true;
                     setTimeout(function() {
                         document.getElementById('twittername').invalid = false;
