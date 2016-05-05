@@ -10,19 +10,31 @@
 
     <style>
         #form {
-            width: 45%;
-            margin: auto;
-            height: 50%;
-            border: 3px solid black;
+            width: 30vw;
+            margin: -7.5vw 0 0 -15vw;
+            height: 15vw;
+            border: 0 solid lightgrey;
             padding: 2em;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            overflow: hidden;
+            box-shadow: 0px 0px 20px 1px lightgray;
+            text-align: center;
+            background-color: white;
         }
 
         iron-icon {
             margin-right: .5em;
         }
 
+        paper-input {
+            text-align: left !important;
+        }
+
         paper-button {
             margin: 2em auto;
+            width: 10em;
         }
     </style>
 
@@ -37,9 +49,9 @@
                 <!--//TODO Add change password-->
                 <iron-icon icon="https" prefix></iron-icon>
             </paper-input>
-            <div id="below-form">
-                <paper-button raised on-tap="submitForm">Sign In</paper-button>
-            </div>
+            <paper-button raised on-tap="submitForm">Sign In</paper-button>
+            <!--<div id="below-form">-->
+            <!--</div>-->
         </form>
     </template>
 
