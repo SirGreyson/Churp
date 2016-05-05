@@ -1,13 +1,64 @@
+//Login page background styling configuration
 body {
-  //background-color: #e6faff;
   background: url(/images/paper_background.jpg);
   background-size: cover;
-  opacity: .7;
-  //opacity: .9;
+  opacity: .8;
 }
 
-//img {
-//  margin: 0 auto;
-//  top: 50%;
-//  left: 50%;
-//}
+//Logo and logo container styling
+.logo-container {
+  width: 100%;
+  text-align: center;
+  margin-top: 10em;
+
+  img {
+    width: 45%;
+    margin-top: 5em;
+  }
+}
+
+//Form and form container styling
+.form-container {
+  width: 100%;
+
+  #form {
+    margin: 3em auto 2em auto;
+    width: 25%;
+    box-shadow: 0px 0px 20px 1px lightgray;
+    background-color: white;
+    padding: 2em;
+    text-align: center;
+    border: 0 solid lightgrey;
+    overflow: hidden;
+
+    paper-input {
+      text-align: left;
+      letter-spacing: .25em;
+    }
+
+    paper-button {
+      margin-top: 2em;
+      width: 10em;
+      letter-spacing: .5em;
+    }
+
+    iron-icon {
+      margin-right: .5em;
+    }
+  }
+}
+
+//Styling when the screen size is mobile
+@media only screen and (max-width: 900px) {
+
+  .logo-container {
+    margin-top: 5em;
+    img {
+      width: 85%;
+    }
+  }
+
+  .form-container #form {
+    width: 85%;
+  }
+}

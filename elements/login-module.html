@@ -4,39 +4,9 @@
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <script src="../bower_components/firebase/firebase.js"></script>
-<script src="../js/main.js"></script>
+<script src="../js/firebase.js"></script>
 
 <dom-module id="login-module">
-
-    <style>
-        #form {
-            width: 30vw;
-            margin: -7.5vw 0 0 -15vw;
-            height: 15vw;
-            border: 0 solid lightgrey;
-            padding: 2em;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            overflow: hidden;
-            box-shadow: 0px 0px 20px 1px lightgray;
-            text-align: center;
-            background-color: white;
-        }
-
-        iron-icon {
-            margin-right: .5em;
-        }
-
-        paper-input {
-            text-align: left !important;
-        }
-
-        paper-button {
-            margin: 2em auto;
-            width: 10em;
-        }
-    </style>
 
     <template>
         <form is="iron-form" id="form">
@@ -49,9 +19,7 @@
                 <!--//TODO Add change password-->
                 <iron-icon icon="https" prefix></iron-icon>
             </paper-input>
-            <paper-button raised on-tap="submitForm">Sign In</paper-button>
-            <!--<div id="below-form">-->
-            <!--</div>-->
+            <paper-button raised on-tap="submitForm">LOGIN</paper-button>
         </form>
     </template>
 
