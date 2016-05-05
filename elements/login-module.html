@@ -1,15 +1,15 @@
+<link rel="imoport" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-form/iron-form.html">
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
-<link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
-<link rel="import" href="../bower_components/gold-email-input/gold-email-input.html">
 <script src="../bower_components/firebase/firebase.js"></script>
 <script src="../js/main.js"></script>
 
 <dom-module id="login-module">
 
     <style>
-        .input-container {
+        #form {
             width: 45%;
             margin: auto;
             height: 50%;
@@ -21,73 +21,45 @@
             margin-right: .5em;
         }
 
-        .bottom-div {
-            margin: 1em auto;
-            width: 50%;
-        }
-
-        .bottom-div paper-button {
-            width: 50%;
-            margin-right: 1em;
+        paper-button {
+            margin: 2em auto;
         }
     </style>
 
     <template>
-        <div class="input-container">
-            <!--<paper-input auto-validate validator="auth()" label="email address" bind-value="{{email}}" error-message="Error! Invalid email address">-->
-            <!--<iron-icon icon="mail" prefix></iron-icon>-->
-            <!--</paper-input>-->
-            <paper-input label="email" bind-value="{{email}}">
-                <iron-icon icon="mail" prefix></iron-icon>
-                <paper-input-error>Address</paper-input-error>
+        <form is="iron-form" id="form">
+            <paper-input id="username" label="twitter username" bind-value="{{username}}"
+                         error-message="Error! Invalid username!">
+                <iron-icon icon="face" prefix></iron-icon>
             </paper-input>
-            <paper-input label="password" type="password" bind-value="{{password}}">
+            <paper-input id="password" label="password" type="password" bind-value="{{password}}"
+                         error-message="Error! Invalid password!">
+                <!--//TODO Add change password-->
                 <iron-icon icon="https" prefix></iron-icon>
             </paper-input>
-            <paper-input label="phone number (coming soon!)" disabled>
-                <iron-icon icon="settings-phone" prefix></iron-icon>
-            </paper-input>
-            <div class="bottom-div">
-                <paper-button toggles raised on-tap="auth">Login</paper-button>
-                <paper-checkbox checked="{{remember}}">remember me?</paper-checkbox>
+            <div id="below-form">
+                <paper-button raised on-tap="submitForm">Sign In</paper-button>
             </div>
-        </div>
+        </form>
     </template>
 
     <script>
         Polymer({
             is: 'login-module',
 
-            properties: {
-                email: {
-                    type: String
-                },
-                password: {
-                    type: String
-                },
-                remember: {
-                    type: Boolean,
-                    value: true
-                },
-                isValid: {
-                    notify: true,
-                    type: Boolean,
-                    value: true
-                }
-            },
-
-            behaviors: [
-                Polymer.IronValidatableBehavior
-            ],
-
-            auth: function () {
-                console.log("Authorizing");
-                authorizeUser(this.email, this.password, this.remember).then(function (result) {
-                    console.log("SUCCESS", result);
-                }, function (err) {
-                    console.log("ERROR", err);
-                    alert("Error! " + err);
-                    return false;
+            submitForm: function () {
+                userExists(this.username, this).then(function (success) {
+                    document.getElementById('username').invalid = !success.value;
+                    if (!success.value) {
+                        document.getElementById('password').invalid = false;
+                        document.getElementById('password').value = '';
+                    }
+                });
+                authorizeUser(this.username, this.password).then(function (success) {
+                    document.getElementById('password').invalid = !success;
+                    if (success) {
+                        //TODO Navigate to user's setting page
+                    }
                 });
             }
         });
