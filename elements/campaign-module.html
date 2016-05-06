@@ -1,0 +1,234 @@
+<script src="../bower_components/webcomponentsjs/webcomponents.js"></script>
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/iron-icons/av-icons.html">
+<link rel="import" href="../bower_components/paper-header-panel/paper-header-panel.html">
+<link rel="import" href="../bower_components/paper-toolbar/paper-toolbar.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/paper-fab/paper-fab.html">
+<link rel="import" href="../bower_components/paper-progress/paper-progress.html">
+<link rel="import" href="../bower_components/google-chart/google-chart.html">
+
+<dom-module id="campaign-module">
+
+    <style>
+        #campaign-container {
+            width: 75vw;
+            height: 75vh;
+            background-color: whitesmoke;
+            margin: auto;
+        }
+
+        paper-fab {
+            margin-right: 1em;
+        }
+
+        .campaign {
+            width: 40vw;
+            margin: 3em auto;
+            background-color: white;
+            height: 55vh;
+            max-height: 75vh;
+            text-align: center;
+        }
+
+        .campaign paper-toolbar {
+            background-color: gold;
+            text-align: left;
+        }
+
+        .campaign-info h3 {
+            width: 16vw;
+            display: inline-block;
+            /*border: 1px dashed gray;*/
+            /*border-right: 1px dashed gray;*/
+            /*border-bottom: 1px dashed gray;*/
+            padding: 1em;
+            letter-spacing: .2em;
+        }
+
+        span.blue {
+            color: cornflowerblue;
+        }
+
+        .progress-container {
+            width: 40vw;
+            padding: 1em;
+            /*border: 1px dashed gray;*/
+            margin-top: -1.3em;
+        }
+
+        .progress-container paper-progress {
+            display: inline-block;
+            margin: auto;
+            width: 30vw;
+        }
+
+        .progress-container h4 {
+            display: inline-block;
+            margin: auto;
+            width: 10vw;
+            padding-bottom: 1.5em;
+        }
+
+        .transaction-container {
+            width: 30vw;
+            margin: auto;
+            /*outline: 1px solid black;*/
+            /*padding: 0 2em;*/
+        }
+
+        .transaction:last-child {
+            margin-bottom: 3em;
+        }
+
+        .transaction-header {
+            letter-spacing: .2em;
+            margin: 0 0 -2em 0;
+            padding-top: 0 !important;
+        }
+
+        .transaction {
+            margin: 1em auto;
+            border: 0 solid lightgray;
+            /*border-radius: 15%;*/
+            box-shadow: 0px 0px 20px 1px lightgray;
+            height: 7vh;
+        }
+
+        .transaction .profile-picture {
+            float: left;
+            height: 5vh;
+            border-radius: 100%;
+            margin: .6em 0 0 1em;
+        }
+
+        .transaction .profile-info {
+            width: 25vw;
+            height: 5vh;
+            margin: 1em 0 0 .7em;
+            /*border: 1px solid black;*/
+            display: inline-block;
+            text-align: left;
+        }
+
+        .transaction .profile-info h4 {
+            display: inline-block;
+            width: 12vw;
+            margin: 0 auto .3em .3em;
+            letter-spacing: .1em;
+        }
+
+        .transaction .profile-info h4 a {
+            text-decoration: none;
+        }
+
+        .data-header {
+            letter-spacing: .3em;
+            margin-top: 0;
+        }
+
+        .geo-chart {
+            width: 40vw;
+        }
+
+        .geo-chart google-chart {
+            margin: auto;
+        }
+    </style>
+
+    <template>
+        <div id="campaign-container">
+            <paper-toolbar>
+                <span class="title">Campaign Management</span>
+                <paper-fab mini icon="av:library-add" title="add"></paper-fab>
+                <paper-fab mini icon="clear" title="clear"></paper-fab>
+                <!--<paper-icon-button id="add-button" icon="add-circle-outline">+Hello</paper-icon-button>-->
+            </paper-toolbar>
+            <div class="campaign">
+                <paper-header-panel>
+                    <paper-toolbar>
+                        <span class="title">Haiti Relief</span>
+                        <paper-icon-button icon="create"></paper-icon-button>
+                    </paper-toolbar>
+                    <div class="campaign-info fit">
+                        <h3>Hashtag: <span class="blue">#letssavehaiti</span></h3>
+                        <h3>Completion Date: 5/10/16</h3>
+                        <div class="progress-container">
+                            <paper-progress value="60" max="100" class="green"></paper-progress>
+                            <h4>$60/100</h4>
+                            <hr>
+                        </div>
+                        <div class="transaction-container">
+                            <h3 class="transaction-header">Transactions:</h3>
+                            <!--MOCK TRANSACTION 1-->
+                            <div class="transaction">
+                                <img class="profile-picture"
+                                     src="https://abs.twimg.com/sticky/default_profile_images/default_profile_2_bigger.png">
+                                <div class="profile-info">
+                                    <h4>Username:
+                                        <a href="http://twitter.com/Churp_Me" target="_blank"><span class="blue">@Churp_Me</span></a>
+                                    </h4>
+                                    <h4>Favorites: 2</h4>
+                                    <h4>Amount: $5.00</h4>
+                                    <h4>Retweets: 6</h4>
+                                </div>
+                            </div>
+                            <!--MOCK TRANSACTION 2-->
+                            <div class="transaction">
+                                <img class="profile-picture"
+                                     src="https://pbs.twimg.com/profile_images/573834642488320000/4l9J8Pfh_400x400.png">
+                                <div class="profile-info">
+                                    <h4>Username:
+                                        <a href="http://twitter.com/notch" target="_blank"><span
+                                                class="blue">@notch</span></a>
+                                    </h4>
+                                    <h4>Favorites: 18</h4>
+                                    <h4>Amount: $125.00</h4>
+                                    <h4>Retweets: 24</h4>
+                                </div>
+                            </div>
+                            <!--MOCK TRANSACTION 3-->
+                            <div class="transaction">
+                                <img class="profile-picture"
+                                     src="https://pbs.twimg.com/profile_images/558109954561679360/j1f9DiJi_400x400.jpeg">
+                                <div class="profile-info">
+                                    <h4>Username:
+                                        <a href="http://twitter.com/BillGates" target="_blank"><span class="blue">@BillGates</span></a>
+                                    </h4>
+                                    <h4>Favorites: 259</h4>
+                                    <h4>Amount: $800,000.00</h4>
+                                    <h4>Retweets: 732</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="data-container">
+                            <h3 class="data-header">Data:</h3>
+                            <div class="geo-chart">
+                                <google-chart
+                                        type="geo"
+                                        data='[["Country", "Contributions"],
+                                    ["Germany", 200],
+                                    ["United States", 300],
+                                    ["Brazil", 400],
+                                    ["Canada", 500],
+                                    ["France", 600],
+                                    ["RU", 700]]'>
+                                </google-chart>
+                            </div>
+                        </div>
+                    </div>
+                </paper-header-panel>
+            </div>
+        </div>
+    </template>
+
+    <script>
+
+        Polymer({
+            is: 'campaign-module'
+        });
+
+    </script>
+
+</dom-module>
