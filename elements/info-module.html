@@ -1,0 +1,71 @@
+<link rel="import" href="../bower_components/iron-pages/iron-pages.html">
+
+<dom-module id="info-module">
+
+    <style>
+        iron-pages {
+            height: 50%;
+        }
+
+        .info-page {
+            width: 55vw;
+            background-color: whitesmoke;
+            margin: auto;
+            height: 50vh;
+        }
+
+        .next-arrow {
+            float: right;
+            font-size: 5em;
+            margin-top: 3em;
+        }
+
+        .next-arrow:hover {
+            cursor: pointer;
+        }
+
+        .last-arrow {
+            float: left;
+            font-size: 5em;
+            margin-top: 3em;
+        }
+
+        .last-arrow:hover {
+            cursor: pointer;
+        }
+    </style>
+
+    <template>
+        <iron-pages selected="0">
+            <div class="info-page">
+                <h3>Welcome to the info tutorial</h3>
+                <span on-tap="nextPage" class="next-arrow glyphicon glyphicon-menu-right"></span>
+            </div>
+            <div class="info-page">
+                <h3>This is page 2</h3>
+                <span on-tap="lastPage" class="last-arrow glyphicon glyphicon-menu-left"></span>
+            </div>
+        </iron-pages>
+    </template>
+
+    <script>
+
+        Polymer({
+            is: 'info-module',
+
+            nextPage: function () {
+                document.querySelector('iron-pages').selectNext();
+            },
+
+            lastPage: function () {
+                document.querySelector('iron-pages').selectPrevious();
+            },
+            skipToPage: function () {
+                var pages = document.querySelector('iron-pages');
+                pages.selectIndex(0);
+            }
+        });
+
+    </script>
+
+</dom-module>

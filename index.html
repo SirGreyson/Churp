@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <title>Churp - Send Money via Twitter</title>
         <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" type="text/css"/>
+        <link rel="import" href="elements/info-module.html">
         <link rel="stylesheet" href="css/index.css" type="text/css"/>
         <script src="bower_components/jquery/dist/jquery.js"></script>
         <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
@@ -36,6 +37,13 @@
         </div>
         <div id="info-view">
             <span id="up-arrow" onclick="scrollToDiv('main-view')" class="glyphicon glyphicon-menu-up"></span>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="info-container">
+                        <info-module></info-module>
+                    </div>
+                </div>
+            </div>
         </div>
     </body>
 </html>

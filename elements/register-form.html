@@ -111,7 +111,7 @@
                 document.getElementById('passwordCheck').value = '';
                 setTimeout(function() {
                     document.getElementById('passwordCheck').invalid = false;
-                }, 2000)
+                }, 2000);
                 return;
             } 
             userExists(this.twittername, this).then(function (success) {
