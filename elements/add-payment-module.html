@@ -1,0 +1,199 @@
+<link rel="imoport" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-form/iron-form.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<script src="../bower_components/firebase/firebase.js"></script>
+<script src="../js/firebase.js"></script>
+<link rel="import" href="../bower_components/iron-collapse/iron-collapse.html">
+
+<dom-module id="payment-module">
+
+
+    <style>
+        #link-payment-form {
+            padding: 1em;
+            margin: auto;
+            width: 100%;
+            height: auto;
+            min-height: 5em;
+            border: 0 solid lightgrey;
+            overflow: hidden;
+            box-shadow: 0px 0px 20px 1px lightgray;
+            text-align: center;
+            /*background-color: lightsteelblue;*/
+            cursor: default;
+        }
+        #add-payment-form {
+            display: none;
+            padding: 1em;
+            padding-top: 0;
+            margin: auto;
+            width: 100%;
+            height: auto;
+            min-height: 5em;
+            border: 0 solid lightgrey;
+            overflow: hidden;
+            box-shadow: 0px 0px 20px 1px lightgray;
+            text-align: center;
+            /*background-color: cadetblue;*/
+            cursor: default;
+        }
+        
+        #add-payment-form p {
+            float: left;
+            clear: both;
+            letter-spacing: 0;
+            text-transform: lowercase;
+        }
+        
+        paper-input {
+            text-align: left;
+            text-transform: lowercase;
+            letter-spacing: 0;
+        }
+        
+        iron-icon {
+            --iron-icon-height: 2em;
+            --iron-icon-width: 2em;
+            margin-bottom: 0.2em;
+        }
+        
+        paper-button {
+            padding: 0;
+            width: 10%;
+            border: 1px solid black;
+            border-radius: 0;
+            display: block;
+            float: left;
+        }
+        
+        #payment-container {
+            width: 100%;
+        }
+        
+        #password-container {
+            width: 100%;
+        }
+        
+        #phone-container {
+            width: 100%;
+        }
+        
+        .main-head {
+            text-align: center;
+        }
+        
+        .sub-head {
+            float: left;
+            margin: 0;
+        }
+        
+        h5 {
+            margin-top: -2em !important;
+            cursor: default;
+        }
+        .balance {
+            text-align: right;
+        }
+        
+        h4 {
+            float: left;
+            margin-left: 2em;
+            white-space: nowrap;
+            cursor: default;
+        }
+        .active-account-header {
+            display: none;
+        }
+        
+        .email {
+            font-weight: bold;
+        }
+        .balance {
+            margin-top: -1em;
+        }
+        
+        hr {
+            display: block;
+            margin: 0;
+            clear: both;
+        }
+        .edit-icon {
+            float: right;
+            margin-top: -2.4em;
+            margin-right: 2.5em;
+        }
+        .delete-icon {
+            float: right;
+            margin-top: -2.4em;
+        }
+    </style>
+
+    <template>
+        <hr>
+        <h4 class="main-head link-account-header">Link an account</h4>
+        <form is="iron-form" id="link-payment-form">
+            <br>
+            <br>
+            <h5 class="sub-head">PAYPAL<iron-icon class="small" icon="payment" prefix></iron-icon></h5>
+            <hr>
+            <paper-input bind-value="{{email}}" label="paypal email"></paper-input>
+            <paper-input id="password-input"type="password" label="paypal password"></paper-input>
+            <br>
+            <paper-button on-tap="hideLinkForm">ADD</paper-button>
+        </form>
+        <h4 class="main-head active-account-header">Active account</h4>
+        <form is="iron-form" id="add-payment-form">
+            <br>
+            <br>
+            <h5 class="sub-head">PAYPAL<iron-icon class="small" icon="payment" prefix></iron-icon></h5>
+            <iron-icon class="small edit-icon" on-tap="showLinkForm" icon="create" prefix></iron-icon>
+            <iron-icon class="small delete-icon" on-tap="showLinkForm" icon="delete"></iron-icon>
+            <hr>
+            <br>
+            <p class="email">{{email}}</p>
+            <p class="balance">$867.00</p>
+        </form>
+    </template>
+
+    <script>
+        Polymer({
+            is: 'payment-module',
+            hideLinkForm: function() {
+                $('#link-payment-form').hide();
+                $('.link-account-header').hide();
+                $('#add-payment-form').show();
+                $('.active-account-header').show();
+
+            },
+            showLinkForm: function() {
+                $('#link-payment-form').show();
+                $('.link-account-header').show();
+                $('#add-payment-form').hide();
+                $('.active-account-header').hide();
+                $('#password-input').value = null;
+            },
+            togglePassword: function() {
+                this.$.password.toggle();
+            },
+
+            submitForm: function () {
+                userExists(this.username, this).then(function (success) {
+                    document.getElementById('username').invalid = !success.value;
+                    if (!success.value) {
+                        document.getElementById('password').invalid = false;
+                        document.getElementById('password').value = '';
+                    }
+                });
+                authorizeUser(this.username, this.password).then(function (success) {
+                    document.getElementById('password').invalid = !success;
+                    if (success) {
+                        //TODO Navigate to user's setting page
+                    }
+                });
+            }
+        });
+    </script>
+
+</dom-module>
