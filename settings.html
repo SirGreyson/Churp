@@ -1,25 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Edit Your Settings</title>
-        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" type="text/css"/>
-        <link rel="stylesheet" href="css/settings.css" type="text/css"/>
-        <script src="bower_components/jquery/dist/jquery.js"></script>
-        <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-        <script src="bower_components/firebase/firebase.js"></script>
-        <script src="js/main.js"></script>
-        <link rel="import" href="elements/settings-module.html">
 
-    </head>
-    <body>
-        <div class="row">
-            <div class="col-sm-12">
-                <h1>Welcome {{user}}!</h1>
-            </div>
-            <div class="settings-container">
-                <settings-module></settings-module>
-            </div>
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Your Settings</title>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="css/settings.css" type="text/css" />
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/firebase/firebase.js"></script>
+    <script src="js/main.js"></script>
+    <link rel="import" href="elements/settings-module.html">
+    <link rel="import" href="bower_components/paper-tabs/paper-tabs.html">
+
+
+</head>
+
+<body>
+    <div class="row">
+        <div class="settings-container">
+
+            <h1 class="main-head" on-click="showSettings()">Welcome, Admin!</h1>
+            <img src="../images/dave.jpg" alt="">
+
+            <paper-tabs id="tabs" selected="0">
+                <paper-tab on-tap="showCampaigns">CAMPAIGNS</paper-tab>
+                <paper-tab on-tap="showSettings">SETTINGS</paper-tab>
+            </paper-tabs>
+            <settings-module></settings-module>
+            <campaign-module>hello</campaign-module>
         </div>
-    </body>
+    </div>
+    
+
+</body>
+
 </html>

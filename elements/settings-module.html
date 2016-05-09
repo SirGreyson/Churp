@@ -8,6 +8,8 @@
 <script src="../js/firebase.js"></script>
 <link rel="import" href="../bower_components/iron-collapse/iron-collapse.html">
 <link rel="import" href="../elements/add-payment-module.html">
+<link rel="import" href="../elements/campaign-module.html">
+<link rel="import" href="../elements/change-password-module.html">
 
 <dom-module id="settings-module">
 
@@ -63,10 +65,20 @@
         #phone-container {
             width: 100%;
         }
+        #password {
+            letter-spacing: 0;
+        }
+        #submit-button {
+            float: left;
+        }
+
     </style>
 
     <template>
+
         <form is="iron-form" id="form">
+            <!--<campaign-module></campaign-module>-->
+            
         <paper-button id="payment-container" noink>PAYMENT SETTINGS
             <br>
             <iron-icon id="more-payments"icon="expand-more" on-click="togglePayment">
@@ -80,7 +92,7 @@
             <br>
             <iron-icon icon="expand-more" on-click="togglePassword"></iron-icon>
             <iron-collapse id="password">
-                <div>Content goes here...</div>
+                <change-password-module></change-password-module>
             </iron-collapse>
         </paper-button>
 
