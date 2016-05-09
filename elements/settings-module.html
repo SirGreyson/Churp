@@ -3,31 +3,33 @@
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-ripple/paper-ripple.html">
 <script src="../bower_components/firebase/firebase.js"></script>
 <script src="../js/users.js"></script>
 <link rel="import" href="../bower_components/iron-collapse/iron-collapse.html">
+<link rel="import" href="../elements/add-payment-module.html">
 
 <dom-module id="settings-module">
-    
-    
+
+
     <style>
         #form {
             margin: auto;
             width: 60%;
-            height: 25em;
+            height: auto;
             min-width: 25em;
-            min-height: 20em;
             border: 0 solid lightgrey;
             padding: 2em;
             overflow: hidden;
             box-shadow: 0px 0px 20px 1px lightgray;
             text-align: center;
-            background-color:rgba(991,991,991,1);
+            background-color: rgba(991, 991, 991, 1);
         }
+        
         paper-input {
             text-align: left;
         }
-
+        
         iron-icon {
             margin-right: .5em;
         }
@@ -40,7 +42,7 @@
             color: black;
             margin-top: 0.5em;
         }
-
+        
         paper-button {
             margin: 0.3em auto;
             width: auto;
@@ -48,13 +50,16 @@
             border: 1px solid black;
             border-radius: 0;
         }
+
         
         #payment-container {
             width: 100%;
         }
+        
         #password-container {
             width: 100%;
         }
+        
         #phone-container {
             width: 100%;
         }
@@ -62,24 +67,19 @@
 
     <template>
         <form is="iron-form" id="form">
-        <paper-button id="payment-container" on-click="togglePayment">PAYMENT SETTINGS
+        <paper-button id="payment-container" noink>PAYMENT SETTINGS
             <br>
-            <iron-icon icon="expand-more"></iron-icon>
+            <iron-icon id="more-payments"icon="expand-more" on-click="togglePayment">
+                <paper-ripple recenters></paper-ripple>
+            </iron-icon>
             <iron-collapse id="payments">
-                <div>Content goes here...</div>
+                <payment-module></payment-module>
             </iron-collapse>
         </paper-button>
-                <paper-button id="password-container" on-click="togglePassword">CHANGE PASSWORD
+                <paper-button id="password-container" noink>CHANGE PASSWORD
             <br>
-            <iron-icon icon="expand-more"></iron-icon>
+            <iron-icon icon="expand-more" on-click="togglePassword"></iron-icon>
             <iron-collapse id="password">
-                <div>Content goes here...</div>
-            </iron-collapse>
-        </paper-button>
-                <paper-button id="phone-container" on-click="togglePhone">PHONE SETTINGS
-            <br>
-            <iron-icon icon="expand-more"></iron-icon>
-            <iron-collapse id="phone">
                 <div>Content goes here...</div>
             </iron-collapse>
         </paper-button>
