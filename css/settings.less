@@ -39,10 +39,10 @@ img {
   text-align: center;
   display: block;
   width: 10em;
-  margin: auto;
-  margin-bottom: 3em;
+  margin: 0 auto 3em auto;
   border: 1px solid black;
   border-radius: 0;
+  clear: both;
 }
 
 settings-module {
@@ -55,5 +55,11 @@ settings-module {
   h2 {
     word-wrap: break-word;
     white-space: normal;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  paper-button#logout-button {
+    display: none !important;
   }
 }
