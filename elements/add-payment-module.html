@@ -4,7 +4,8 @@
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <script src="../bower_components/firebase/firebase.js"></script>
-<script src="../js/firebase.js"></script>
+<script src="../js/payment.js"></script>
+<script src="../js/users.js"></script>
 <link rel="import" href="../bower_components/iron-collapse/iron-collapse.html">
 
 <dom-module id="payment-module">
@@ -99,7 +100,6 @@
         
         h4 {
             float: left;
-            margin-left: 2em;
             white-space: nowrap;
             cursor: default;
         }
@@ -138,10 +138,10 @@
             <br>
             <h5 class="sub-head">PAYPAL<iron-icon class="small" icon="payment" prefix></iron-icon></h5>
             <hr>
-            <paper-input bind-value="{{email}}" label="paypal email"></paper-input>
-            <paper-input id="password-input"type="password" label="paypal password"></paper-input>
+            <paper-input id="email-input" value="{{email}}" label="paypal email"></paper-input>
+            <paper-input id="password-input" value="{{password}}" type="password" label="paypal password"></paper-input>
             <br>
-            <paper-button on-tap="hideLinkForm">ADD</paper-button>
+            <paper-button on-tap="addPayment">ADD</paper-button>
         </form>
         <h4 class="main-head active-account-header">Active account</h4>
         <form is="iron-form" id="add-payment-form">
@@ -149,17 +149,23 @@
             <br>
             <h5 class="sub-head">PAYPAL<iron-icon class="small" icon="payment" prefix></iron-icon></h5>
             <iron-icon class="small edit-icon" on-tap="showLinkForm" icon="create" prefix></iron-icon>
-            <iron-icon class="small delete-icon" on-tap="showLinkForm" icon="delete"></iron-icon>
+            <iron-icon class="small delete-icon" on-tap="deletePayment" icon="delete"></iron-icon>
             <hr>
             <br>
             <p class="email">{{email}}</p>
-            <p class="balance">$867.00</p>
+            <p class="balance">{{balance}}</p>
         </form>
     </template>
 
     <script>
         Polymer({
             is: 'payment-module',
+            
+            addPayment: function() {
+                addPayment(this.email,this.password);
+                this.hideLinkForm();
+            },
+            
             hideLinkForm: function() {
                 $('#link-payment-form').hide();
                 $('.link-account-header').hide();
@@ -172,12 +178,17 @@
                 $('.link-account-header').show();
                 $('#add-payment-form').hide();
                 $('.active-account-header').hide();
-                $('#password-input').value = null;
+                $('#password-input').value = '';
             },
-            togglePassword: function() {
-                this.$.password.toggle();
+            deletePayment: function() {
+                $('#link-payment-form').show();
+                $('.link-account-header').show();
+                $('#add-payment-form').hide();
+                $('.active-account-header').hide();
+                this.email = '';
+                this.password = '';
+                removePayment();
             },
-
             submitForm: function () {
                 userExists(this.username, this).then(function (success) {
                     document.getElementById('username').invalid = !success.value;
@@ -192,6 +203,10 @@
                         //TODO Navigate to user's setting page
                     }
                 });
+            },
+            ready: function() {
+                    var info = getPayment();
+                    console.log(info);
             }
         });
     </script>
