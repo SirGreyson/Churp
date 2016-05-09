@@ -238,10 +238,10 @@
             ready: function () {
                 this.campaigns = [];
                 getCampaigns().then(function (success) {
-                    for (var i in success.val()) {
-                        this.campaigns.push(success.val()[i]);
-                        console.log(success.val()[i]);
-                    }
+                    // for (var i in success.val()) {
+                        // this.campaigns.push(success.val()[i]);
+                        // console.log(success.val()[i]);
+                    // }
 //                    this.campaigns = Array.of(success.val());
 //                    console.log(this.campaigns);
                 });

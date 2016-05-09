@@ -16,7 +16,8 @@ var payment = root.child('payment');
 function getPayment() {
     return {
         email: payment.child("email"),
-        password: payment.child("password")
+        password: payment.child("password"),
+        balance: payment.child("balance")
     }
 }
 
@@ -39,7 +40,7 @@ function addPayment(email, password) {
  * Removes an existing payment account from the database
  */
 function removePayment() {
-    payment.child(payment).set({}, function (error) {
+    payment.set({}, function (error) {
         if (error) {
             console.log("User payment could not be removed.", error);
         } else {
