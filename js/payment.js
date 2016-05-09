@@ -16,7 +16,8 @@ var payment = root.child('payment');
 function getPayment() {
     return {
         email: payment.child("email"),
-        password: payment.child("password")
+        password: payment.child("password"),
+        balance: payment.child("balance").toLocaleString('en', {style: "currency", currency: "USD"})
     }
 }
 
@@ -26,7 +27,7 @@ function getPayment() {
  * @param password - the payment account password
  */
 function addPayment(email, password) {
-    payment.set({email: email, password: password}, function (error) {
+    payment.set({email: email, password: password, balance: 867.72}, function (error) {
         if (error) {
             console.log("User payment could not be added.", error);
         } else {
@@ -39,7 +40,7 @@ function addPayment(email, password) {
  * Removes an existing payment account from the database
  */
 function removePayment() {
-    payment.child(payment).set({}, function (error) {
+    payment.set({}, function (error) {
         if (error) {
             console.log("User payment could not be removed.", error);
         } else {

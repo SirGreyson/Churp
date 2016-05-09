@@ -1,8 +1,6 @@
 <script src="../bower_components/webcomponentsjs/webcomponents.js"></script>
 <script src="../bower_components/firebase/firebase.js"></script>
 <script src="../js/campaigns.js"></script>
-<script src="../bower_components/jquery/dist/jquery.js"></script>
-
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../bower_components/iron-icons/av-icons.html">
 <link rel="import" href="../bower_components/paper-header-panel/paper-header-panel.html">
@@ -10,14 +8,27 @@
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/paper-fab/paper-fab.html">
 <link rel="import" href="../bower_components/paper-progress/paper-progress.html">
+<link rel="import" href="../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../bower_components/neon-animation/neon-animated-pages.html">
+<link rel="import" href="../bower_components/neon-animation/neon-animatable.html">
+<link rel="import" href="../bower_components/neon-animation/neon-animations.html">
 <!--<link rel="import" href="../bower_components/google-chart/google-chart.html">-->
 
 <dom-module id="campaign-module">
 
     <style>
-        #campaign-container {
+        a {
+            text-decoration: none;
+        }
+
+        #mobile-container {
+            display: none;
+        }
+
+        #desktop-container {
             width: 75vw;
-            height: 75vh;
+            min-height: 75vh;
+            max-height: 250vh;
             background-color: whitesmoke;
             margin: auto;
         }
@@ -36,7 +47,7 @@
         }
 
         .campaign paper-toolbar {
-            background-color: gold;
+            background-color: lightblue;
             text-align: left;
         }
 
@@ -81,8 +92,8 @@
             /*padding: 0 2em;*/
         }
 
-        .transaction:last-child {
-            margin-bottom: 3em;
+        .after-trans {
+            margin-top: 3em;
         }
 
         .transaction-header {
@@ -122,111 +133,215 @@
             letter-spacing: .1em;
         }
 
-        .transaction .profile-info h4 a {
-            text-decoration: none;
-        }
+        /*.data-header {*/
+        /*letter-spacing: .3em;*/
+        /*margin-top: 0;*/
+        /*}*/
 
-        .data-header {
-            letter-spacing: .3em;
-            margin-top: 0;
-        }
+        /*.geo-chart {*/
+        /*width: 40vw;*/
+        /*}*/
 
-        .geo-chart {
-            width: 40vw;
-        }
+        /*.geo-chart google-chart {*/
+        /*margin: auto;*/
+        /*}*/
 
-        .geo-chart google-chart {
-            margin: auto;
+        @media only screen and (max-width: 900px) {
+            #mobile-container {
+                display: inline;
+                width: 100vw;
+                height: 100vh;
+            }
+
+            #mobile-container .title {
+                margin-left: -.2em;
+            }
+
+            #desktop-container {
+                display: none;
+            }
+
+            .campaign {
+                height: 100vh !important;
+                width: 100%;
+                margin: 0 auto;
+            }
+
+            .campaign-info h3 {
+                width: 100%;
+                margin: .5em auto;
+                padding: 0;
+            }
+
+            .progress-container {
+                width: 100%;
+                margin-top: .1em;
+            }
+
+            .progress-container h4 {
+                display: block;
+            }
+
+            .transaction-container {
+                width: 100%;
+            }
+
+            .transaction .profile-info {
+                width: 80%;
+                text-align: center;
+            }
+
+            .transaction .profile-info h4 {
+                font-size: 1em;
+                width: 35%;
+                margin-top: -.5em;
+            }
         }
     </style>
 
     <template>
-        <div id="campaign-container">
+        <!-- DESKTOP CAMPAIGN DISPLAY FORMATTING -->
+        <div id="desktop-container">
             <paper-toolbar>
                 <span class="title">Campaign Management</span>
                 <paper-fab mini icon="av:library-add" title="add"></paper-fab>
-                <paper-fab mini icon="clear" title="clear"></paper-fab>
-                <!--<paper-icon-button id="add-button" icon="add-circle-outline">+Hello</paper-icon-button>-->
+                <!--<paper-fab mini icon="clear" title="clear"></paper-fab>-->
             </paper-toolbar>
-            <div class="campaign">
-                <template repeat="{{c in campaigns}}">
-                    <h1>{{c.title}}</h1>
+            <!-- ITERATE THROUGH CAMPAIGNS IN THE DATABASE -->
+            <template is="dom-repeat" items="{{campaigns}}">
+                <div class="campaign">
+                    <paper-header-panel>
+                        <paper-toolbar>
+                            <span class="title">{{item.title}}</span>
+                            <paper-icon-button icon="create"></paper-icon-button>
+                            <paper-icon-button id="{{item.id}}" icon="delete"
+                                               onclick="removeCampaign(this.id)"></paper-icon-button>
+                        </paper-toolbar>
+                        <div class="campaign-info fit">
+                            <h3>Hashtag: <a href="http://twitter.com/hashtag/{{item.hashtag}}" target="_blank">
+                                <span class="blue">#{{item.hashtag}}</span>
+                            </a></h3>
+                            <h3>Completion Date: 5/10/16</h3>
+                            <div class="progress-container">
+                                <paper-progress value="{{item.balance}}" max="{{item.target}}"
+                                                class="green"></paper-progress>
+                                <h4>${{item.balance}}/{{item.target}}</h4>
+                                <hr>
+                            </div>
+                            <div class="transaction-container">
+                                <h3 class="transaction-header">Transactions:</h3>
+                                <!-- ITERATE THROUGH TRANSACTIONS OF A CAMPAIGN -->
+                                <template is="dom-repeat" items="{{item.transactions}}">
+                                    <div class="transaction">
+                                        <img class="profile-picture"
+                                             src="https://pbs.twimg.com/profile_images/{{item.picture}}">
+                                        <div class="profile-info">
+                                            <h4>Username:
+                                                <a href="http://twitter.com/{{item.username}}" target="_blank">
+                                                    <span class="blue">@{{item.username}}</span>
+                                                </a>
+                                            </h4>
+                                            <h4>Favorites: {{item.favorites}}</h4>
+                                            <h4>Amount: {{item.amount}}</h4>
+                                            <h4>Retweets: {{item.retweets}}</h4>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                            <hr class="after-trans">
+                            <!--<div class="data-container">-->
+                            <!--<h3 class="data-header">Data:</h3>-->
+                            <!--<div class="geo-chart">-->
+                            <!--<google-chart-->
+                            <!--type="geo"-->
+                            <!--data='[["Country", "Contributions"],-->
+                            <!--["Germany", 200],-->
+                            <!--["United States", 300],-->
+                            <!--["Brazil", 400],-->
+                            <!--["Canada", 500],-->
+                            <!--["France", 600],-->
+                            <!--["RU", 700]]'>-->
+                            <!--</google-chart>-->
+                            <!--</div>-->
+                            <!--</div>-->
+                        </div>
+                    </paper-header-panel>
+                </div>
+            </template>
+        </div>
+        <!-- MOBILE CAMPAIGN DISPLAY TEMPLATE -->
+        <div id="mobile-container">
+            <paper-toolbar>
+                <span class="title">Campaign Management</span>
+                <paper-fab mini icon="av:library-add" title="add"></paper-fab>
+                <!--<paper-fab mini icon="clear" title="clear"></paper-fab>-->
+            </paper-toolbar>
+            <neon-animated-pages selected="0" entry-animation="[[entryAnimation]]" exit-animation="[[exitAnimation]]">
+                <template is="dom-repeat" items="{{campaigns}}">
+                    <neon-animatable class="campaign">
+                        <paper-header-panel>
+                            <paper-toolbar>
+                                <span class="title">{{item.title}}</span>
+                                <paper-icon-button icon="create"></paper-icon-button>
+                                <paper-icon-button id="mobile-{{item.id}}" icon="delete"
+                                                   onclick="removeCampaign(this.id)"></paper-icon-button>
+                                <paper-icon-button icon="arrow-forward" on-click="_onNextClick"></paper-icon-button>
+                            </paper-toolbar>
+                            <div class="campaign-info fit">
+                                <h3>Hashtag: <a href="http://twitter.com/hashtag/{{item.hashtag}}" target="_blank">
+                                    <span class="blue">#{{item.hashtag}}</span>
+                                </a></h3>
+                                <h3>Completion Date: 5/10/16</h3>
+                                <div class="progress-container">
+                                    <paper-progress value="{{item.balance}}" max="{{item.target}}"
+                                                    class="green"></paper-progress>
+                                    <h4>${{item.balance}}/{{item.target}}</h4>
+                                    <hr>
+                                </div>
+                                <div class="transaction-container">
+                                    <h3 class="transaction-header">Transactions:</h3>
+                                    <!-- ITERATE THROUGH TRANSACTIONS OF A CAMPAIGN -->
+                                    <template is="dom-repeat" items="{{item.transactions}}">
+                                        <div class="transaction">
+                                            <img class="profile-picture"
+                                                 src="https://pbs.twimg.com/profile_images/{{item.picture}}">
+                                            <div class="profile-info">
+                                                <h4>Username:
+                                                    <a href="http://twitter.com/{{item.username}}" target="_blank">
+                                                        <span class="blue">@{{item.username}}</span>
+                                                    </a>
+                                                </h4>
+                                                <!--<h4>Favorites: {{item.favorites}}</h4>-->
+                                                <h4>Amount: {{item.amount}}</h4>
+                                                <!--<h4>Retweets: {{item.retweets}}</h4>-->
+                                            </div>
+                                        </div>
+                                    </template>
+                                </div>
+                                <hr class="after-trans">
+                                <!--<div class="data-container">-->
+                                <!--<h3 class="data-header">Data:</h3>-->
+                                <!--<div class="geo-chart">-->
+                                <!--<google-chart-->
+                                <!--type="geo"-->
+                                <!--data='[["Country", "Contributions"],-->
+                                <!--["Germany", 200],-->
+                                <!--["United States", 300],-->
+                                <!--["Brazil", 400],-->
+                                <!--["Canada", 500],-->
+                                <!--["France", 600],-->
+                                <!--["RU", 700]]'>-->
+                                <!--</google-chart>-->
+                                <!--</div>-->
+                                <!--</div>-->
+                            </div>
+                        </paper-header-panel>
+                    </neon-animatable>
                 </template>
-                <paper-header-panel>
-                    <paper-toolbar>
-                        <span class="title">Haiti Relief</span>
-                        <paper-icon-button icon="create"></paper-icon-button>
-                    </paper-toolbar>
-                    <div class="campaign-info fit">
-                        <h3>Hashtag: <span class="blue">#letssavehaiti</span></h3>
-                        <h3>Completion Date: 5/10/16</h3>
-                        <div class="progress-container">
-                            <paper-progress value="60" max="100" class="green"></paper-progress>
-                            <h4>$60/100</h4>
-                            <hr>
-                        </div>
-                        <div class="transaction-container">
-                            <h3 class="transaction-header">Transactions:</h3>
-                            <!--MOCK TRANSACTION 1-->
-                            <div class="transaction">
-                                <img class="profile-picture"
-                                     src="https://pbs.twimg.com/profile_images/728676699550953472/-Jbd0yEm_400x400.jpg">
-                                <div class="profile-info">
-                                    <h4>Username:
-                                        <a href="http://twitter.com/Churp_Me" target="_blank"><span class="blue">@Churp_Me</span></a>
-                                    </h4>
-                                    <h4>Favorites: 2</h4>
-                                    <h4>Amount: $5.00</h4>
-                                    <h4>Retweets: 6</h4>
-                                </div>
-                            </div>
-                            <!--MOCK TRANSACTION 2-->
-                            <div class="transaction">
-                                <img class="profile-picture"
-                                     src="https://pbs.twimg.com/profile_images/573834642488320000/4l9J8Pfh_400x400.png">
-                                <div class="profile-info">
-                                    <h4>Username:
-                                        <a href="http://twitter.com/notch" target="_blank"><span
-                                                class="blue">@notch</span></a>
-                                    </h4>
-                                    <h4>Favorites: 18</h4>
-                                    <h4>Amount: $125.00</h4>
-                                    <h4>Retweets: 24</h4>
-                                </div>
-                            </div>
-                            <!--MOCK TRANSACTION 3-->
-                            <div class="transaction">
-                                <img class="profile-picture"
-                                     src="https://pbs.twimg.com/profile_images/558109954561679360/j1f9DiJi_400x400.jpeg">
-                                <div class="profile-info">
-                                    <h4>Username:
-                                        <a href="http://twitter.com/BillGates" target="_blank"><span class="blue">@BillGates</span></a>
-                                    </h4>
-                                    <h4>Favorites: 259</h4>
-                                    <h4>Amount: $800,000.00</h4>
-                                    <h4>Retweets: 732</h4>
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
-                        <!--<div class="data-container">-->
-                        <!--<h3 class="data-header">Data:</h3>-->
-                        <!--<div class="geo-chart">-->
-                        <!--<google-chart-->
-                        <!--type="geo"-->
-                        <!--data='[["Country", "Contributions"],-->
-                        <!--["Germany", 200],-->
-                        <!--["United States", 300],-->
-                        <!--["Brazil", 400],-->
-                        <!--["Canada", 500],-->
-                        <!--["France", 600],-->
-                        <!--["RU", 700]]'>-->
-                        <!--</google-chart>-->
-                        <!--</div>-->
-                        <!--</div>-->
-                    </div>
-                </paper-header-panel>
-            </div>
+            </neon-animated-pages>
+            <!--<iron-pages selected="0">-->
+            <!---->
+            <!--</iron-pages>-->
         </div>
     </template>
 
@@ -235,16 +350,40 @@
         Polymer({
             is: 'campaign-module',
 
+            properties: {
+                campaigns: {
+                    type: Array,
+                    notify: true
+                }
+            },
+
+            _onNextClick: function () {
+                var pages = document.querySelector('neon-animated-pages');
+                this.entryAnimation = 'slide-from-right-animation';
+                this.exitAnimation = 'slide-left-animation';
+                pages.selectNext();
+            },
+
             ready: function () {
-                this.campaigns = [];
-                getCampaigns().then(function (success) {
-                    for (var i in success.val()) {
-                        this.campaigns.push(success.val()[i]);
-                        console.log(success.val()[i]);
+                getCampaigns(this).then(function (success) {
+                    var output = [];
+                    for (var v in success.value) {
+                        output.push(success.context.parseCampaign(v, success.value[v]));
                     }
-//                    this.campaigns = Array.of(success.val());
-//                    console.log(this.campaigns);
+                    success.context.campaigns = output;
                 });
+            },
+
+            parseCampaign: function (id, campaign) {
+                campaign.id = id;
+                var transactions = [];
+                for (var t in campaign.transactions) {
+                    var transaction = campaign.transactions[t];
+                    transaction.amount = transaction.amount.toLocaleString('en', {style: 'currency', currency: 'USD'});
+                    transactions.push(transaction);
+                }
+                campaign.transactions = transactions;
+                return campaign;
             }
         });
 
