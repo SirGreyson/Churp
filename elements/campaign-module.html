@@ -1,4 +1,8 @@
 <script src="../bower_components/webcomponentsjs/webcomponents.js"></script>
+<script src="../bower_components/firebase/firebase.js"></script>
+<script src="../js/campaigns.js"></script>
+<script src="../bower_components/jquery/dist/jquery.js"></script>
+
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../bower_components/iron-icons/av-icons.html">
 <link rel="import" href="../bower_components/paper-header-panel/paper-header-panel.html">
@@ -6,7 +10,7 @@
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/paper-fab/paper-fab.html">
 <link rel="import" href="../bower_components/paper-progress/paper-progress.html">
-<link rel="import" href="../bower_components/google-chart/google-chart.html">
+<!--<link rel="import" href="../bower_components/google-chart/google-chart.html">-->
 
 <dom-module id="campaign-module">
 
@@ -145,6 +149,9 @@
                 <!--<paper-icon-button id="add-button" icon="add-circle-outline">+Hello</paper-icon-button>-->
             </paper-toolbar>
             <div class="campaign">
+                <template repeat="{{c in campaigns}}">
+                    <h1>{{c.title}}</h1>
+                </template>
                 <paper-header-panel>
                     <paper-toolbar>
                         <span class="title">Haiti Relief</span>
@@ -163,7 +170,7 @@
                             <!--MOCK TRANSACTION 1-->
                             <div class="transaction">
                                 <img class="profile-picture"
-                                     src="https://abs.twimg.com/sticky/default_profile_images/default_profile_2_bigger.png">
+                                     src="https://pbs.twimg.com/profile_images/728676699550953472/-Jbd0yEm_400x400.jpg">
                                 <div class="profile-info">
                                     <h4>Username:
                                         <a href="http://twitter.com/Churp_Me" target="_blank"><span class="blue">@Churp_Me</span></a>
@@ -202,21 +209,21 @@
                             </div>
                         </div>
                         <hr>
-                        <div class="data-container">
-                            <h3 class="data-header">Data:</h3>
-                            <div class="geo-chart">
-                                <google-chart
-                                        type="geo"
-                                        data='[["Country", "Contributions"],
-                                    ["Germany", 200],
-                                    ["United States", 300],
-                                    ["Brazil", 400],
-                                    ["Canada", 500],
-                                    ["France", 600],
-                                    ["RU", 700]]'>
-                                </google-chart>
-                            </div>
-                        </div>
+                        <!--<div class="data-container">-->
+                        <!--<h3 class="data-header">Data:</h3>-->
+                        <!--<div class="geo-chart">-->
+                        <!--<google-chart-->
+                        <!--type="geo"-->
+                        <!--data='[["Country", "Contributions"],-->
+                        <!--["Germany", 200],-->
+                        <!--["United States", 300],-->
+                        <!--["Brazil", 400],-->
+                        <!--["Canada", 500],-->
+                        <!--["France", 600],-->
+                        <!--["RU", 700]]'>-->
+                        <!--</google-chart>-->
+                        <!--</div>-->
+                        <!--</div>-->
                     </div>
                 </paper-header-panel>
             </div>
@@ -226,7 +233,19 @@
     <script>
 
         Polymer({
-            is: 'campaign-module'
+            is: 'campaign-module',
+
+            ready: function () {
+                this.campaigns = [];
+                getCampaigns().then(function (success) {
+                    for (var i in success.val()) {
+                        this.campaigns.push(success.val()[i]);
+                        console.log(success.val()[i]);
+                    }
+//                    this.campaigns = Array.of(success.val());
+//                    console.log(this.campaigns);
+                });
+            }
         });
 
     </script>

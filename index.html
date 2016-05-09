@@ -12,38 +12,42 @@
         <script src="js/main.js"></script>
     </head>
     <body>
-        <div id="main-view">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="logo-container">
-                        <img src="images/placeholder.png">
-                        <h1>Welcome to Churp</h1>
+        <div id="awan">
+
+            <div id="main-view">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="logo-container">
+                            <img src="images/placeholder.png">
+                            <h1>Welcome to Churp</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="nav-container">
+                            <button class="btn btn-primary">
+                                <a href="register.html">REGISTER</a>
+                            </button>
+                            <button class="btn btn-info">
+                                <a href="login.html">LOGIN</a>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <span id="down-arrow" onclick="scrollToDiv('info-view')" class="glyphicon glyphicon-menu-down"></span>
+            </div>
+            <div id="info-view">
+                <span id="up-arrow" onclick="scrollToDiv('main-view')" class="glyphicon glyphicon-menu-up"></span>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="info-container">
+                            <info-module></info-module>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="nav-container">
-                        <button class="btn btn-primary">
-                            <a href="register.html">REGISTER</a>
-                        </button>
-                        <button class="btn btn-info">
-                            <a href="login.html">LOGIN</a>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <span id="down-arrow" onclick="scrollToDiv('info-view')" class="glyphicon glyphicon-menu-down"></span>
-        </div>
-        <div id="info-view">
-            <span id="up-arrow" onclick="scrollToDiv('main-view')" class="glyphicon glyphicon-menu-up"></span>
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="info-container">
-                        <info-module></info-module>
-                    </div>
-                </div>
-            </div>
+
         </div>
     </body>
 </html>
