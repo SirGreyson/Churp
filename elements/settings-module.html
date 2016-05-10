@@ -27,6 +27,9 @@
             text-align: center;
             background-color: rgba(991, 991, 991, 1);
         }
+        .title {
+            text-align: left;
+        }
         
         paper-input {
             text-align: left;
@@ -34,6 +37,7 @@
         
         iron-icon {
             margin-right: .5em;
+            cursor: pointer;
         }
         
         #spinner {
@@ -46,11 +50,12 @@
         }
         
         paper-button {
-            margin: 0.3em auto;
+            margin: 0.9em auto;
             width: auto;
             letter-spacing: 0.5em;
             border: 1px solid black;
             border-radius: 0;
+            cursor: default;
         }
 
         
@@ -77,8 +82,9 @@
     <template>
 
         <form is="iron-form" id="form">
-            <!--<campaign-module></campaign-module>-->
-            
+            <paper-toolbar>
+                <span class="title">Account Settings</span>
+            </paper-toolbar>
         <paper-button id="payment-container" noink>PAYMENT SETTINGS
             <br>
             <iron-icon id="more-payments"icon="expand-more" on-click="togglePayment">
