@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<<<<<<< HEAD <head>
+    <head>
     <meta charset="UTF-8">
     <title>Edit Your Settings</title>
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" type="text/css" />
@@ -13,6 +13,12 @@
     <link rel="import" href="elements/settings-module.html">
     <link rel="import" href="bower_components/paper-tabs/paper-tabs.html">
     <link rel="import" href="bower_components/paper-dialog/paper-dialog.html">
+    
+    <style is="custom-style">
+        paper-tabs[no-bar] paper-tab.iron-selected {
+            color: #0277bd;
+        }
+    </style>
 
 
     </head>
@@ -27,7 +33,7 @@
                     <!--<center> <h4 onclick="newCampModal.toggle()">new campaign</h4> </center>-->
                 </div>
 
-                <paper-tabs id="tabs" selected="0">
+                <paper-tabs id="tabs" noink no-bar selected="0">
                     <paper-tab onclick="showCampaigns()">CAMPAIGNS</paper-tab>
                     <paper-tab onclick="showSettings()">SETTINGS</paper-tab>
                 </paper-tabs>

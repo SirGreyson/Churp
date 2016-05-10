@@ -17,13 +17,13 @@
     <style>
         #form {
             margin: auto;
+            margin-bottom: 1em;
             width: 60%;
-            height: auto;
+            /*height: auto;*/
             min-width: 25em;
             border: 0 solid lightgrey;
-            padding: 2em;
             overflow: hidden;
-            box-shadow: 0px 0px 20px 1px lightgray;
+            /*box-shadow: 0px 0px 20px 1px gray;*/
             text-align: center;
             background-color: rgba(991, 991, 991, 1);
         }
@@ -57,6 +57,15 @@
             border-radius: 0;
             cursor: default;
         }
+        
+        .payment-settings-container {
+            background-color: #cfd8dc;
+            padding: 1em;
+        }
+        .change-password-container {
+            background-color: #cfd8dc;
+            padding: 1em;
+        }
 
         
         #payment-container {
@@ -67,14 +76,15 @@
             width: 100%;
         }
         
-        #phone-container {
-            width: 100%;
-        }
         #password {
             letter-spacing: 0;
         }
         #submit-button {
             float: left;
+        }
+        paper-toolbar {
+                --paper-toolbar-background: #039be5;
+                box-shadow: 1px 1px 10px 1px gray;
         }
 
     </style>
@@ -82,27 +92,30 @@
     <template>
 
         <form is="iron-form" id="form">
-            <paper-toolbar>
+            <!--<paper-toolbar>
                 <span class="title">Account Settings</span>
-            </paper-toolbar>
-        <paper-button id="payment-container" noink>PAYMENT SETTINGS
-            <br>
-            <iron-icon id="more-payments"icon="expand-more" on-click="togglePayment">
-                <paper-ripple recenters></paper-ripple>
-            </iron-icon>
-            <iron-collapse id="payments">
+            </paper-toolbar>-->
+        <paper-toolbar><span class="title">PAYMENT SETTINGS</span></paper-toolbar>
+         <div class="payment-settings-container">   
+            <!--<iron-icon id="more-payments"icon="expand-more" on-click="togglePayment">-->
+                <!--<paper-ripple recenters></paper-ripple>-->
+            <!--</iron-icon>-->
+            <!--<iron-collapse id="payments">-->
                 <payment-module></payment-module>
-            </iron-collapse>
-        </paper-button>
-                <paper-button id="password-container" noink>CHANGE PASSWORD
-            <br>
-            <iron-icon icon="expand-more" on-click="togglePassword"></iron-icon>
-            <iron-collapse id="password">
+            <!--</iron-collapse>-->
+         </div>
+         </form>
+         <form is="iron-form" id="form">
+        <paper-toolbar><span class="title">CHANGE PASSWORD</span></paper-toolbar>
+        <div class="change-password-container"> 
+            <!--<br>-->
+            <!--<iron-icon icon="expand-more" on-click="togglePassword"></iron-icon>-->
+            <!--<iron-collapse id="password">-->
                 <change-password-module></change-password-module>
-            </iron-collapse>
-        </paper-button>
-
-        </form>
+            <!--</iron-collapse>-->
+            </div>
+         </form>
+        
     </template>
 
     <script>
