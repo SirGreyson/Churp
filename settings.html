@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+<<<<<<< HEAD <head>
     <meta charset="UTF-8">
     <title>Edit Your Settings</title>
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" type="text/css" />
@@ -15,43 +15,45 @@
     <link rel="import" href="bower_components/paper-dialog/paper-dialog.html">
 
 
-</head>
+    </head>
 
-<body>
-    <div class="row">
-        <div class="settings-container">
-            <div class="user-info">
+    <body>
+        <div class="row">
+            <div class="settings-container">
+                <div class="user-info">
 
-            <h1 class="main-head" on-click="showSettings()">Welcome, Admin!</h1>
-            <img src="../images/dave.jpg" alt="">
-           <!--<center> <h4 onclick="newCampModal.toggle()">new campaign</h4> </center>-->
-           </div>
+                    <h1 class="main-head" on-click="showSettings()">Welcome, Admin!</h1>
+                    <img src="../images/dave.jpg" alt="">
+                    <!--<center> <h4 onclick="newCampModal.toggle()">new campaign</h4> </center>-->
+                </div>
 
-            <paper-tabs id="tabs" selected="0">
-                <paper-tab onclick="showCampaigns()">CAMPAIGNS</paper-tab>
-                <paper-tab onclick="showSettings()">SETTINGS</paper-tab>
-            </paper-tabs>
-            
-                
-                        <paper-dialog aria-modal="true" role="alertdialog" id="newCampModal">
-                            <h2>Fill out the following inputs and get your new campaign rolling!</h2>
-                            <paper-input id="campaign-name-input" label="Campaign Name"></paper-input><paper-input id="campaign-hashtag-input" label="Hashtag"><h2 prefix>#</h2></paper-input>
-                            <paper-input id="target-goal-input" label="Target Goal"></paper-input><paper-input id="completion-date-input"label="Completion Date" type="date"></paper-input>
-                            <div class="buttons">
-                                <paper-button dialog-dismiss>Cancel</paper-button>
-                                <paper-button onclick="checkDate()" dialog-confirm>Accept</paper-button>
-                            </div>
-                        </paper-dialog>
-            <settings-module>
-            </settings-module>
-            <campaign-module></campaign-module>
-            
-        </div>
-        <br>
-    </div>
-    <paper-button id="logout-button" onclick="logOutUser()">logout</paper-button>
-    
+                <paper-tabs id="tabs" selected="0">
+                    <paper-tab onclick="showCampaigns()">CAMPAIGNS</paper-tab>
+                    <paper-tab onclick="showSettings()">SETTINGS</paper-tab>
+                </paper-tabs>
 
-</body>
+
+                <paper-dialog aria-modal="true" role="alertdialog" id="newCampModal">
+                    <h2>Fill out the following inputs and get your new campaign rolling!</h2>
+                    <paper-input id="campaign-name-input" label="Campaign Name"></paper-input>
+                    <paper-input id="campaign-hashtag-input" label="Hashtag">
+                        <h2 prefix>#</h2></paper-input>
+                    <paper-input id="target-goal-input" label="Target Goal"></paper-input>
+                    <paper-input id="completion-date-input" label="Completion Date" type="date"></paper-input>
+                    <div class="buttons">
+                        <paper-button dialog-dismiss>Cancel</paper-button>
+                        <paper-button onclick="checkDate()" dialog-confirm>Accept</paper-button>
+                    </div>
+                </paper-dialog>
+                <settings-module>
+                </settings-module>
+                <campaign-module></campaign-module>
+
+
+            </div>
+            <paper-button id="logout-button" onclick="logOutUser()">logout</paper-button>
+
+
+    </body>
 
 </html>

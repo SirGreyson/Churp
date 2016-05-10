@@ -26,11 +26,12 @@
         }
 
         #desktop-container {
-            width: 75vw;
-            min-height: 75vh;
-            max-height: 250vh;
+            width: 60%;
+            min-height: 100em;
+            max-height: 250em;
             background-color: whitesmoke;
             margin: auto;
+            padding-bottom: 3em;
         }
 
         paper-fab {
@@ -41,8 +42,8 @@
             width: 40vw;
             margin: 3em auto;
             background-color: white;
-            height: 55vh;
-            max-height: 75vh;
+            height: 55em;
+            max-height: 75em;
             text-align: center;
         }
 
@@ -53,6 +54,7 @@
 
         .campaign-info h3 {
             width: 16vw;
+            min-width: 16vw;
             display: inline-block;
             /*border: 1px dashed gray;*/
             /*border-right: 1px dashed gray;*/
@@ -86,7 +88,7 @@
         }
 
         .transaction-container {
-            width: 30vw;
+            width: 40em;
             margin: auto;
             /*outline: 1px solid black;*/
             /*padding: 0 2em;*/
@@ -107,20 +109,20 @@
             border: 0 solid lightgray;
             /*border-radius: 15%;*/
             box-shadow: 0px 0px 20px 1px lightgray;
-            height: 7vh;
+            height: 7em;
         }
 
         .transaction .profile-picture {
             float: left;
-            height: 5vh;
+            width: 5em;
             border-radius: 100%;
-            margin: .6em 0 0 1em;
+            margin: 1em 0 0 1em;
         }
 
         .transaction .profile-info {
-            width: 25vw;
-            height: 5vh;
-            margin: 1em 0 0 .7em;
+            width: 83%;
+            height: 40%;
+            margin: 2em 0 0 .7em;
             /*border: 1px solid black;*/
             display: inline-block;
             text-align: left;
@@ -128,7 +130,7 @@
 
         .transaction .profile-info h4 {
             display: inline-block;
-            width: 12vw;
+            width: 47%;
             margin: 0 auto .3em .3em;
             letter-spacing: .1em;
         }
@@ -189,12 +191,14 @@
             .transaction .profile-info {
                 width: 80%;
                 text-align: center;
+                display: inline;
             }
 
             .transaction .profile-info h4 {
                 font-size: 1em;
-                width: 35%;
-                margin-top: -.5em;
+                width: 28%;
+                margin: 2em 1em 2em 0;
+                display: inline-block;
             }
         }
     </style>
@@ -204,7 +208,7 @@
         <div id="desktop-container">
             <paper-toolbar>
                 <span class="title">Campaign Management</span>
-                <paper-fab mini icon="av:library-add" title="add"></paper-fab>
+                <paper-fab mini icon="av:library-add" title="add" onclick="newCampModal.toggle()"></paper-fab>
                 <!--<paper-fab mini icon="clear" title="clear"></paper-fab>-->
             </paper-toolbar>
             <!-- ITERATE THROUGH CAMPAIGNS IN THE DATABASE -->
@@ -236,7 +240,7 @@
                                         <img class="profile-picture"
                                              src="https://pbs.twimg.com/profile_images/{{item.picture}}">
                                         <div class="profile-info">
-                                            <h4>Username:
+                                            <h4>
                                                 <a href="http://twitter.com/{{item.username}}" target="_blank">
                                                     <span class="blue">@{{item.username}}</span>
                                                 </a>
@@ -273,7 +277,7 @@
         <div id="mobile-container">
             <paper-toolbar>
                 <span class="title">Campaign Management</span>
-                <paper-fab mini icon="av:library-add" title="add"></paper-fab>
+                <paper-fab mini icon="av:library-add" title="add" onclick="newCampModal.toggle()"></paper-fab>
                 <!--<paper-fab mini icon="clear" title="clear"></paper-fab>-->
             </paper-toolbar>
             <neon-animated-pages selected="0" entry-animation="[[entryAnimation]]" exit-animation="[[exitAnimation]]">
